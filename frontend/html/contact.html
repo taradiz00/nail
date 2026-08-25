@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>تماس با ما</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="../css/contact.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- =========================
+            NAVBAR
+    ========================== -->
+
+    <header class="header">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between py-8">
+          <div class="text-white">
+            <div class="display-font text-2xl font-semibold tracking-wide">
+              GEO VAULT
+            </div>
+
+            <div class="text-[10px] uppercase tracking-[4px] opacity-60">
+              Nature's Treasures
+            </div>
+          </div>
+
+          <nav
+            class="hidden lg:flex gap-12 text-white text-[17px] font-medium relative"
+          >
+            <!-- Services Dropdown -->
+            <div class="relative group">
+              <button
+                class="flex items-center gap-2 hover:text-[#c59ab9] transition-colors"
+              >
+                خدمات
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div
+                class="absolute top-full right-0 mt-4 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden"
+              >
+                <a
+                  href="index.html#services"
+                  class="block px-6 py-4 text-gray-800 hover:bg-[#f7eef4] hover:text-[#a57a97] transition-colors"
+                  dir="rtl"
+                >
+                  خدمات دست
+                </a>
+
+                <a
+                  href="index.html#services"
+                  class="block px-6 py-4 text-gray-800 hover:bg-[#f7eef4] hover:text-[#a57a97] transition-colors"
+                  dir="rtl"
+                >
+                  خدمات پا
+                </a>
+
+                <a
+                  href="index.html#nail-design"
+                  class="block px-6 py-4 text-gray-800 hover:bg-[#f7eef4] hover:text-[#a57a97] transition-colors"
+                  dir="rtl"
+                >
+                  طراحی ناخن
+                </a>
+              </div>
+            </div>
+
+            <a href="#" class="hover:text-[#c59ab9] transition-colors">
+              نمونه کار
+            </a>
+            <a
+              href="index.html#about-me"
+              class="hover:text-[#c59ab9] transition-colors"
+              >درباره ما</a
+            >
+          </nav>
+
+
+          <button class="responsive-menu-btn" type="button" aria-label="باز کردن منو" aria-controls="mobile-menu" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <div class="text-white hidden md:block">
+            <a
+              href="#"
+              class="flex items-center gap-2 text-[17px] hover:text-[#c59ab9] transition-colors"
+            >
+              <span>تماس با ما</span>
+              <i data-lucide="phone"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================
+          MOBILE MENU
+    ========================== -->
+
+    <aside id="mobile-menu" class="mobile-menu">
+      <button id="close-menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <a href="services.html">خدمات دست</a>
+
+      <a href="services.html">خدمات پا</a>
+
+      <a href="services.html">طراحی ناخن</a>
+
+      <a href="gallery.html">نمونه کار</a>
+
+      <a href="index.html#about-me">درباره ما</a>
+
+      <a id="intro-section">تماس با ما</a>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <!-- =========================
+         INTRODUCTION
+    ========================== -->
+
+    <section class="intro-section">
+      <div class="container intro-grid">
+        <div class="intro-text" dir="rtl">
+          <h2>همیشه آماده پاسخگویی هستیم</h2>
+
+          <p>
+            اگر برای اولین بار قصد مراجعه دارید، درباره خدمات سوالی دارید، یا
+            می‌خواهید پیش از رزرو مشاوره دریافت کنید، می‌توانید از طریق شماره
+            تماس، واتساپ یا اینستاگرام با ما در ارتباط باشید.
+          </p>
+
+          <p>
+            هدف ما ایجاد تجربه‌ای آرام، حرفه‌ای و لذت‌بخش برای تمامی زیباجویان
+            است.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <i data-lucide="map-pin"></i>
+
+            <h3>آدرس</h3>
+
+            <p>کرج، بلوار نبوت، میعاد 2، ساختمان کارن، پلاک 11 واحد 1</p>
+          </div>
+
+          <div class="card">
+            <i data-lucide="phone"></i>
+
+            <h3>تلفن</h3>
+
+            <a href="tel:+989399447782"> 0939 944 7782 </a>
+          </div>
+
+          <div class="card">
+            <i class="fa-brands fa-instagram"></i>
+
+            <h3>اینستاگرام</h3>
+
+            <a href="https://instagram.com/mahnaz_nail_karaj">
+              @mahnaz_nail_karaj
+            </a>
+          </div>
+
+          <div class="card">
+            <i data-lucide="clock-3"></i>
+
+            <h3>ساعات کاری</h3>
+
+            <p>
+              روزهای زوج
+              <br />
+              10 صبح تا 6 عصر
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+            GOOGLE MAP
+    ========================== -->
+
+    <section class="map-section">
+      <div class="container">
+        <div class="section-heading">
+          <span>موقعیت ما</span>
+
+          <h2>آدرس سالن روی نقشه</h2>
+
+          <p>
+            با استفاده از نقشه زیر می‌توانید به راحتی مسیر سالن را پیدا کنید.
+          </p>
+        </div>
+
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6468.653799690201!2d50.988009!3d35.840987!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzXCsDUwJzI3LjYiTiA1MMKwNTknMTYuOCJF!5e0!3m2!1sen!2s!4v1785703338496!5m2!1sen!2s"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            loading="lazy"
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+                FOOTER
+    ========================== -->
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <!-- Logo -->
+        <div class="footer-logo">
+          <img src="./images/logo.png" alt="Logo" />
+        </div>
+
+        <!-- Socials -->
+        <div class="footer-socials">
+          <a href="https://instagram.com/mahnaz_nail_karaj" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+
+          <a href="https://wa.me/989399447782" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+
+          <a href="https://t.me/989399447782" target="_blank">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+        </div>
+
+        <!-- Phone -->
+        <a href="tel:+989399447782" class="footer-phone">
+          <i data-lucide="phone"></i>
+          <span>0939 944 7782</span>
+        </a>
+
+        <!-- Address -->
+        <a class="footer-address" dir="rtl">
+          <i data-lucide="map-pin"></i>
+          کرج، بلوار نبوت، میعاد 2، ساختمان کارن، پلاک 11 واحد 2
+        </a>
+      </div>
+
+      <div class="footer-copy">کلیه حقوق این سایت محفوظ است</div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="../js/script.js"></script>
+  
+    <script>
+      (function () {
+        const menu = document.getElementById("mobile-menu");
+        const overlay = document.getElementById("overlay");
+        const openBtn = document.querySelector(".responsive-menu-btn");
+        const closeBtn = document.getElementById("close-menu");
+
+        if (!menu || !overlay || !openBtn) return;
+
+        const setMenu = (open) => {
+          menu.classList.toggle("active", open);
+          overlay.classList.toggle("active", open);
+          openBtn.setAttribute("aria-expanded", String(open));
+          document.body.classList.toggle("menu-open", open);
+        };
+
+        openBtn.addEventListener("click", () => setMenu(true));
+        closeBtn?.addEventListener("click", () => setMenu(false));
+        overlay.addEventListener("click", () => setMenu(false));
+        menu.querySelectorAll("a").forEach((link) =>
+          link.addEventListener("click", () => setMenu(false))
+        );
+      })();
+    </script>
+  </body>
+</html>

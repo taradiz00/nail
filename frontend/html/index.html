@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+
+    <header class="absolute w-full z-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between py-8">
+          <div class="text-white">
+            <div class="display-font text-2xl font-semibold tracking-wide">
+              GEO VAULT
+            </div>
+
+            <div class="text-[10px] uppercase tracking-[4px] opacity-60">
+              Nature's Treasures
+            </div>
+          </div>
+
+          <nav
+            class="hidden lg:flex gap-12 text-white text-[17px] font-medium relative"
+          >
+            <!-- Services Dropdown -->
+            <div class="relative group">
+              <button
+                class="flex items-center gap-2 hover:text-[#c59ab9] transition-colors"
+              >
+                خدمات
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div
+                class="absolute top-full right-0 mt-4 w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden"
+              >
+                <a
+                  href="#services"
+                  class="block px-6 py-4 text-gray-800 hover:bg-[#f7eef4] hover:text-[#a57a97] transition-colors"
+                  dir="rtl"
+                >
+                  خدمات دست
+                </a>
+
+                <a
+                  href="#services"
+                  class="block px-6 py-4 text-gray-800 hover:bg-[#f7eef4] hover:text-[#a57a97] transition-colors"
+                  dir="rtl"
+                >
+                  خدمات پا
+                </a>
+
+                <a
+                  href="#nail-design"
+                  class="block px-6 py-4 text-gray-800 hover:bg-[#f7eef4] hover:text-[#a57a97] transition-colors"
+                  dir="rtl"
+                >
+                  طراحی ناخن
+                </a>
+              </div>
+            </div>
+
+            <a href="#" class="hover:text-[#c59ab9] transition-colors">
+              نمونه کار
+            </a>
+            <a href="#about-me" class="hover:text-[#c59ab9] transition-colors"
+              >درباره ما</a
+            >
+          </nav>
+
+          <div class="text-white hidden md:block">
+            <a
+              href="../html/contact.html"
+              class="flex items-center gap-2 text-[17px] hover:text-[#c59ab9] transition-colors"
+            >
+              <span>تماس با ما</span>
+              <i data-lucide="phone"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="#services">خدمات دست</a>
+      <a href="#services">خدمات پا</a>
+      <a href="#nail-design">طراحی ناخن</a>
+      <a href="#">نمونه کار</a>
+      <a href="#about-me">درباره ما</a>
+      <a href="#">تماس با ما</a>
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden text-white text-2xl"
+        aria-label="Menu"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div id="mobile-overlay" class="mobile-overlay"></div>
+    </div>
+
+    <!-- HERO -->
+
+    <section class="hero-section min-h-screen relative overflow-hidden">
+      <div
+        class="max-w-7xl mx-auto px-6 min-h-screen flex items-center relative z-10"
+      >
+        <div class="grid lg:grid-cols-2 gap-10 items-center w-full">
+          <!-- LEFT -->
+          <div class="text-white">
+            <h1 class="display-font sm:text-5xl md:text-6xl leading-tight">
+              ناخن‌ها
+              <span class="text-[#c59ab9]">بازتاب</span>
+              شخصیت
+
+              <span class="block"> شما هستند </span>
+            </h1>
+
+            <p class="mt-8 text-gray-300 max-w-lg leading-8">
+              کاشت تخصصی ناخن و طراحی متناسب با سلیقه، استایل و انرژی شما
+            </p>
+
+            <div class="flex flex-wrap gap-4 mt-10">
+              <a
+                href="../html/booking.html"
+                class="btn btn-primary px-8 py-4 rounded-full text-white font-medium"
+              >
+                رزرو وقت →
+              </a>
+            </div>
+
+            <div class="mt-10 flex items-center gap-4">
+              <div class="flex -space-x-3"></div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+
+          <div class="relative flex justify-center translate-y-24">
+            <div
+              class="absolute w-[500px] h-[500px] rounded-full bg-purple-500/20 blur-[120px]"
+            ></div>
+
+            <div
+              class="glass absolute right-0 top-1/2 -translate-y-1/2 p-8 rounded-3xl text-white max-w-xs"
+            >
+              <p class="leading-8">
+                زیبایی اصیل<br />
+                ظرافت بی‌نقص<br />
+                زیبایی طبیعی
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="bg-white py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-8 text-center">
+          <div class="feature-divider">
+            <div class="flex justify-center">
+              <i
+                data-lucide="shield-check"
+                class="w-8 h-8 text-[#8e5f83]"
+                stroke-width="1.25"
+              ></i>
+            </div>
+            <h3 class="font-medium mt-4 text-gray-700 text-center">
+              بهداشت و ایمنی
+            </h3>
+            <p class="text-gray-500 text-sm mt-2 text-center">
+              ابزار استریل و محیطی بهداشتی
+            </p>
+          </div>
+
+          <div class="feature-divider">
+            <div class="flex justify-center">
+              <i
+                data-lucide="sparkles"
+                class="w-8 h-8 text-[#8e5f83]"
+                stroke-width="1.25"
+              ></i>
+            </div>
+            <h3 class="font-medium mt-4 text-gray-700 text-center">
+              مواد باکیفیت
+            </h3>
+            <p class="text-gray-500 text-sm mt-2 text-center">
+              استفاده از بهترین متریال برای ماندگاری بیشتر
+            </p>
+          </div>
+
+          <div class="feature-divider">
+            <div class="flex justify-center">
+              <i
+                data-lucide="hand-heart"
+                class="w-8 h-8 text-[#8e5f83]"
+                stroke-width="1.25"
+              ></i>
+            </div>
+            <h3 class="font-medium mt-4 text-gray-700 text-center">
+              مراقبت تخصصی ناخن
+            </h3>
+            <p class="text-gray-500 text-sm mt-2 text-center">
+              خدمات حرفه‌ای برای سلامت و زیبایی ناخن‌ها
+            </p>
+          </div>
+
+          <div>
+            <div class="flex justify-center">
+              <i
+                data-lucide="palette"
+                class="w-8 h-8 text-[#8e5f83]"
+                stroke-width="1.25"
+              ></i>
+            </div>
+            <h3 class="font-medium mt-4 text-gray-700">طراحی خلاقانه</h3>
+            <p class="text-gray-500 text-sm mt-2">طراحی خاص دلخواه شما</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- COLLECTION -->
+
+    <section id="services" class="py-24 bg-[#faf8f7]">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center">
+          <h2 class="display-font text-[#7b5773] text-5xl mt-3">
+            خدمات کاشت و ترمیم
+          </h2>
+        </div>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mt-14"
+        >
+          <!-- Card 1 -->
+          <div class="nail-card bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="image-wrapper">
+              <img
+                src="../images/poodr_grim.jpg"
+                class="card-image h-72 w-full object-cover"
+              />
+
+              <div class="card-overlay">
+                <div class="overlay-info">
+                  <p class="text-lg font-semibold">خدمات دست و پا</p>
+
+                  <a href="../html/booking.html" class="see-all">رزرو →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 text-center font-semibold">پودر</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="nail-card bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="image-wrapper">
+              <img
+                src="../images/laminet.jpg"
+                class="card-image h-72 w-full object-cover"
+              />
+
+              <div class="card-overlay">
+                <div class="overlay-info">
+                  <p class="text-lg font-semibold">خدمات دست و پا</p>
+
+                  <a href="../html/booking.html" class="see-all">رزرو →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 text-center font-semibold">لمینت</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="nail-card bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="image-wrapper">
+              <img
+                src="../images/polygel.jpg"
+                class="card-image h-72 w-full object-cover"
+              />
+
+              <div class="card-overlay">
+                <div class="overlay-info">
+                  <p class="text-lg font-semibold">خدمات دست و پا</p>
+
+                  <a href="../html/booking.html" class="see-all">رزرو →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 text-center font-semibold">پلی ژل</div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="nail-card bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="image-wrapper">
+              <img
+                src="../images/softgel.jpg"
+                class="card-image h-72 w-full object-cover"
+              />
+
+              <div class="card-overlay">
+                <div class="overlay-info">
+                  <p class="text-lg font-semibold">خدمات دست و پا</p>
+
+                  <a href="../html/booking.html" class="see-all">رزرو →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 text-center font-semibold">سافت ژل</div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="nail-card bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="image-wrapper">
+              <img
+                src="../images/geltips.jpg"
+                class="card-image h-72 w-full object-cover"
+              />
+
+              <div class="card-overlay">
+                <div class="overlay-info">
+                  <p class="text-lg font-semibold">خدمات دست و پا</p>
+
+                  <a href="../html/booking.html" class="see-all">رزرو →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 text-center font-semibold">ژلتیپس</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GEMSTONES SECTION -->
+
+    <section id="nail-design" class="py-32 bg-[#faf8f7] -mt-14">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Heading -->
+
+        <div class="text-center mb-14">
+          <h2 class="display-font text-[#7b5773] text-5xl">نمونه‌های طراحی</h2>
+
+          <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
+            مجموعه‌ای از طراحی‌های خاص ناخن که زیبایی و ظرافت را به نمایش
+            می‌گذارند
+          </p>
+        </div>
+
+        <!-- Bento Grid -->
+
+        <div class="bento-grid">
+          <!-- Large Card -->
+
+          <div class="gem-card opal">
+            <img src="../images/hero6.jpg" />
+
+            <div class="overlay"></div>
+
+            <div class="content">
+              <h3>فرنچ</h3>
+              <p>Discover iridescent beauty.</p>
+            </div>
+          </div>
+
+          <!-- Card -->
+
+          <div class="gem-card amethyst">
+            <img src="../images/french_disco.jpg" />
+
+            <div class="overlay"></div>
+
+            <div class="content">
+              <h3>فرنچ دیسکو</h3>
+            </div>
+          </div>
+
+          <!-- Card -->
+
+          <div class="gem-card sapphire">
+            <img src="../images/ice.jpg" />
+
+            <div class="overlay"></div>
+
+            <div class="content">
+              <h3>آیس</h3>
+            </div>
+          </div>
+
+          <!-- Card -->
+
+          <div class="gem-card ruby">
+            <img src="../images/duster.jpg" />
+
+            <div class="overlay"></div>
+
+            <div class="content">
+              <h3>داستر</h3>
+            </div>
+          </div>
+
+          <!-- Card -->
+
+          <div class="gem-card emerald">
+            <img src="../images/disco.jpg" />
+
+            <div class="overlay"></div>
+
+            <div class="content">
+              <h3>دیسکو</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom CTA -->
+
+        <div class="text-center mt-12">
+          <a
+            href="../html/services.html"
+            class="btn btn-primary px-8 py-4 rounded-full text-white font-medium inline-block"
+          >
+            مشاهده همه →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about-me" class="about-section">
+      <div class="about-container">
+        <!-- Text -->
+        <div class="about-content">
+          <span class="about-label">✦ درباره من ✦</span>
+
+          <h2>سلام، من مهنـاز هستم...</h2>
+
+          <p>
+            من با عشق به زیبایی و جزئیات، مسیرم را در دنیای طراحی و کاشت ناخن
+            آغاز کردم. با بیش از 10 سال تجربه هدف من فقط زیباتر کردن ناخن‌ها
+            نیست، بلکه خلق تجربه‌ای است که استایل و شخصیت شما را بازتاب دهد.
+          </p>
+
+          <p>
+            با استفاده از متریال باکیفیت و تکنیک‌های روز، تلاش می‌کنم بهترین
+            نتیجه را برای هر مشتری خلق کنم و فضایی آرام و حرفه‌ای برای شما فراهم
+            سازم.
+          </p>
+
+          <div class="about-features">
+            <div>
+              <i data-lucide="sparkles" style="color: #8e5f83"></i>
+              <span>تجربه خاص</span>
+            </div>
+
+            <div>
+              <i data-lucide="award" style="color: #8e5f83"></i>
+              <span>متریال باکیفیت</span>
+            </div>
+
+            <div>
+              <i data-lucide="heart" style="color: #8e5f83"></i>
+              <span>با عشق و دقت</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="about-image-wrapper">
+          <div class="image-decoration image-decoration-1"></div>
+          <div class="image-decoration image-decoration-2"></div>
+
+          <div class="about-image-frame">
+            <img src="../images/mahnazpic.jpg" alt="About Me" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+
+    <section class="bg-white py-16">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 text-center gap-8">
+          <div>
+            <h3 class="display-font text-6xl">10+</h3>
+            <p class="text-gray-500">سال تجربه</p>
+          </div>
+
+          <div>
+            <h3 class="display-font text-6xl">200+</h3>
+            <p class="text-gray-500">زیباجوی راضی</p>
+          </div>
+
+          <div>
+            <h3 class="display-font text-6xl">5+</h3>
+            <p class="text-gray-500">سال آموزش تخصصی</p>
+          </div>
+
+          <div>
+            <h3 class="display-font text-6xl">500+</h3>
+            <p class="text-gray-500">طراحی ناخن</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+
+    <!-- <section class="newsletter-bg py-6" id="client-form">
+      <div class="max-w-6xl mx-auto px-6" dir="rtl">
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex flex-col lg:flex-row items-center justify-between gap-6"
+        >
+          <div class="text-white">
+            <h2 class="display-font text-2xl font-semibold">
+              عضو باشگاه مشتریان شوید
+            </h2>
+
+            <p class="mt-1 text-sm opacity-80">
+              از جدیدترین طراحی‌ها، ترندهای روز و پیشنهادهای ویژه باخبر شوید
+            </p>
+          </div>
+
+          <form
+            class="flex flex-col lg:flex-row items-center gap-3 w-full lg:w-auto"
+          >
+            <input
+              id="client-name"
+              type="text"
+              placeholder="نام کامل"
+              dir="rtl"
+              required
+              class="px-4 py-3 rounded-full w-full lg:w-44 text-black"
+            />
+
+            <input
+              id="client-email"
+              type="email"
+              placeholder="ایمیل"
+              dir="rtl"
+              class="px-4 py-3 rounded-full w-full lg:w-56 text-black"
+            />
+
+            <input
+              id="client-phone"
+              type="tel"
+              placeholder="تلفن"
+              dir="rtl"
+              required
+              class="px-4 py-3 rounded-full w-full lg:w-40 text-black"
+            />
+
+            <button
+              type="submit"
+              class="bg-[#050713] text-white px-6 py-3 rounded-full whitespace-nowrap hover:opacity-80 transition"
+            >
+              ثبت نام
+            </button>
+          </form>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <!-- Logo -->
+        <div class="footer-logo">
+          <img src="../images/logo.png" alt="Logo" />
+        </div>
+
+        <!-- Socials -->
+        <div class="footer-socials">
+          <a href="https://instagram.com/mahnaz_nail_karaj" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+
+          <a href="https://wa.me/989399447782" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+
+          <a href="https://t.me/989399447782" target="_blank">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+        </div>
+
+        <!-- Phone -->
+        <a href="tel:+989399447782" class="footer-phone">
+          <i data-lucide="phone"></i>
+          <span>0939 944 7782</span>
+        </a>
+
+        <!-- Address -->
+        <a href="contact.html" class="footer-address" dir="rtl">
+          <i data-lucide="map-pin"></i>
+          کرج، بلوار نبوت، میعاد 2، ساختمان کارن، پلاک 11 واحد 2
+        </a>
+      </div>
+
+      <div class="footer-copy">کلیه حقوق این سایت محفوظ است</div>
+    </footer>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/script.js" defer></script>
+  </body>
+</html>

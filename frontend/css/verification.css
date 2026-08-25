@@ -1,0 +1,351 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+
+  font-family: "Tahoma", sans-serif;
+
+  background: linear-gradient(135deg, #faf7f9, #f4edf2);
+
+  color: #25212a;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.verification-main {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.verification-card {
+  width: 100%;
+  max-width: 480px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  padding: 48px 38px;
+
+  border-radius: 28px;
+
+  box-shadow: 0 20px 60px rgba(40, 25, 38, 0.1);
+
+  text-align: center;
+}
+
+/* =========================
+   ICON
+========================= */
+
+.verification-icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 0 auto 24px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f5eaf1;
+  color: #a57a97;
+}
+
+.verification-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.verification-heading h1 {
+  font-size: 27px;
+  margin-bottom: 12px;
+}
+
+.verification-heading p {
+  color: #777079;
+
+  line-height: 1.9;
+
+  font-size: 14px;
+
+  margin-bottom: 32px;
+}
+
+/* =========================
+   CODE INPUT
+========================= */
+
+.code-input-wrapper {
+  margin-bottom: 18px;
+}
+
+.verification-code {
+  width: 100%;
+
+  height: 64px;
+
+  border: 1px solid #ddd3da;
+
+  border-radius: 16px;
+
+  background: #faf8fa;
+
+  outline: none;
+
+  text-align: center;
+
+  font-size: 27px;
+  font-weight: 600;
+
+  letter-spacing: 12px;
+
+  padding-left: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.verification-code:focus {
+  border-color: #b38ba7;
+
+  background: #fff;
+
+  box-shadow: 0 0 0 4px rgba(179, 139, 167, 0.12);
+}
+
+/* =========================
+   VERIFY BUTTON
+========================= */
+
+.verify-btn {
+  width: 100%;
+
+  border: none;
+  border-radius: 16px;
+
+  padding: 16px 20px;
+
+  background: #050713;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.verify-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.verify-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.verification-message {
+  margin: 0 0 18px;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.verification-message.error {
+  color: #b42318;
+}
+
+.verification-message.success {
+  color: #277847;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.resend-section {
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  font-size: 13px;
+  color: #777079;
+}
+
+.countdown {
+  min-width: 42px;
+
+  direction: ltr;
+
+  color: #9c718e;
+
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.resend-btn {
+  border: none;
+  background: transparent;
+
+  color: #9c718e;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.resend-btn:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.resend-btn:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.verification-icon {
+  width: 62px;
+  height: 62px;
+  margin-bottom: 20px;
+}
+
+.verification-icon svg {
+  width: 27px;
+  height: 27px;
+}
+
+.resend-section {
+  font-size: 12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+.verification-main {
+  width: 100%;
+}
+
+@media (max-width: 520px) {
+  .verification-main {
+    align-items: flex-start;
+
+    padding: max(28px, env(safe-area-inset-top)) 16px
+      max(28px, env(safe-area-inset-bottom));
+  }
+
+  .verification-card {
+    margin-top: 6vh;
+
+    padding: 32px 20px;
+
+    border-radius: 20px;
+  }
+
+  .verification-icon {
+    width: 62px;
+    height: 62px;
+
+    margin-bottom: 20px;
+  }
+
+  .verification-icon svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  .verification-heading h1 {
+    font-size: 23px;
+  }
+
+  .verification-heading p {
+    margin-bottom: 24px;
+  }
+
+  .verification-code {
+    height: 58px;
+
+    font-size: 22px;
+
+    letter-spacing: clamp(5px, 2.4vw, 9px);
+
+    padding-left: clamp(5px, 2.4vw, 9px);
+  }
+
+  .verify-btn {
+    min-height: 50px;
+  }
+
+  .resend-section {
+    flex-wrap: wrap;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 340px) {
+  .verification-main {
+    padding-inline: 10px;
+  }
+
+  .verification-card {
+    padding-inline: 14px;
+  }
+
+  .verification-heading h1 {
+    font-size: 21px;
+  }
+
+  .verification-code {
+    font-size: 20px;
+
+    letter-spacing: 5px;
+
+    padding-left: 5px;
+  }
+}

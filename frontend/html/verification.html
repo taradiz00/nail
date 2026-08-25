@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>تایید شماره تلفن</title>
+
+    <link rel="stylesheet" href="../css/verification.css" />
+
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+  </head>
+
+  <body>
+    <main class="verification-main">
+      <section class="verification-card">
+        <div class="verification-icon">
+          <i data-lucide="message-square-text"></i>
+        </div>
+
+        <div class="verification-heading">
+          <h1>تایید شماره تلفن</h1>
+
+          <p>کد تایید ارسال شده به شماره تلفن خود را وارد کنید.</p>
+        </div>
+
+        <form id="verification-form">
+          <div class="code-input-wrapper">
+            <input
+              id="verification-code"
+              class="verification-code"
+              type="text"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              maxlength="6"
+              placeholder="------"
+              dir="ltr"
+              required
+            />
+          </div>
+
+          <p id="verification-message" class="verification-message" hidden></p>
+
+          <button id="verify-btn" class="verify-btn" type="submit">
+            تایید شماره تلفن
+          </button>
+        </form>
+
+        <div class="resend-section">
+          <span id="resend-text">ارسال مجدد کد تا</span>
+
+          <span id="countdown" class="countdown">02:00</span>
+
+          <button
+            id="resend-code-btn"
+            class="resend-btn"
+            type="button"
+            disabled
+          >
+            ارسال مجدد کد
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- API functions first -->
+    <script src="../js/sms.js"></script>
+
+    <!-- Page logic second -->
+    <script src="../js/verification_page.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      });
+    </script>
+  </body>
+</html>
