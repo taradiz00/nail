@@ -1,17 +1,34 @@
-import hashlib
-import random
-from datetime import datetime, timedelta, timezone
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    Request,
+    status,
+)
 
-from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+
 from app.core.database import get_db
+
 from app.models import (
     Client,
     Reservation,
-    PhoneVerification,
 )
+
 from app.schemas.phone_verif import VerificationConfirm
+
+
+from app.services.otp_services import (
+    OTPDeliveryError,
+    OTPError,
+    OTPExpiredError,
+    OTPInvalidError,
+    OTPNotFoundError,
+    OTPRateLimitError,
+    OTPTooManyAttemptsError,
+    otp_service,
+)
 
 
 router = APIRouter(
@@ -20,193 +37,281 @@ router = APIRouter(
 )
 
 
-def hash_code(code: str) -> str:
-    return hashlib.sha256(
-        code.encode()
-    ).hexdigest()
+# ==========================
+# GET RESERVATION
+# ==========================
 
 
-@router.post("/send/{reservation_id}")
-def send_verification_code(
+def get_reservation_or_404(
+    db: Session,
     reservation_id: int,
-    db: Session = Depends(get_db),
-):
+) -> Reservation:
+
     reservation = (
         db.query(Reservation)
         .filter(
-            Reservation.id == reservation_id
+            Reservation.id
+            == reservation_id
         )
         .first()
     )
 
+
     if reservation is None:
+
         raise HTTPException(
             status_code=404,
             detail="Reservation not found",
         )
 
+
+    return reservation
+
+
+# ==========================
+# GET CLIENT
+# ==========================
+
+
+def get_client_or_404(
+    db: Session,
+    reservation: Reservation,
+) -> Client:
+
     client = (
         db.query(Client)
         .filter(
-            Client.id == reservation.client_id
+            Client.id
+            == reservation.client_id
         )
         .first()
     )
 
-    code = f"{random.randint(0, 999999):06d}"
 
-    verification = PhoneVerification(
-        phone=client.phone,
-        code_hash=hash_code(code),
-        expires_at=datetime.now(timezone.utc) + timedelta(minutes=5),
-        attempts=0,
+    if client is None:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Client not found",
+        )
+
+
+    return client
+
+
+# ==========================
+# SEND VERIFICATION CODE
+# ==========================
+
+
+@router.post(
+    "/send/{reservation_id}"
+)
+async def send_verification_code(
+    reservation_id: int,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+
+    reservation = (
+        get_reservation_or_404(
+            db,
+            reservation_id,
+        )
     )
 
-    db.add(verification)
-    db.commit()
-    db.refresh(verification)
 
-    print("NEW VERIFICATION CREATED")
-    print("ID:", verification.id)
-    print("PHONE:", verification.phone)
-    print("EXPIRES:", verification.expires_at)
-    
+    client = (
+        get_client_or_404(
+            db,
+            reservation,
+        )
+    )
 
-    # TEMPORARY FOR DEVELOPMENT ONLY
-    print("SMS CODE:", code)
 
-    # Later:
-    # sms_provider.send(
-    #     phone=client.phone,
-    #     message=f"کد تایید شما: {code}"
-    # )
+    request_ip = (
+        request.client.host
+        if request.client
+        else None
+    )
+
+
+    try:
+
+        verification = (
+            await otp_service.send_code(
+                db=db,
+                reservation=reservation,
+                client=client,
+                request_ip=request_ip,
+            )
+        )
+
+
+    # ==========================
+    # RATE LIMIT
+    # ==========================
+
+    except OTPRateLimitError as exc:
+
+        headers = {}
+
+
+        if exc.retry_after is not None:
+
+            headers[
+                "Retry-After"
+            ] = str(
+                exc.retry_after
+            )
+
+
+        raise HTTPException(
+            status_code=
+            status.HTTP_429_TOO_MANY_REQUESTS,
+
+            detail=str(exc),
+
+            headers=headers,
+        ) from exc
+
+
+    # ==========================
+    # EXPIRED RESERVATION
+    # ==========================
+
+    except OTPExpiredError as exc:
+
+        raise HTTPException(
+            status_code=
+            status.HTTP_410_GONE,
+
+            detail=str(exc),
+        ) from exc
+
+
+    # ==========================
+    # SMS PROVIDER FAILURE
+    # ==========================
+
+    except OTPDeliveryError as exc:
+
+        raise HTTPException(
+            status_code=
+            status.HTTP_503_SERVICE_UNAVAILABLE,
+
+            detail=str(exc),
+        ) from exc
+
+
+    # ==========================
+    # OTHER OTP ERROR
+    # ==========================
+
+    except OTPError as exc:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc),
+        ) from exc
+
 
     return {
-        "message": "Verification code sent"
+
+        "sent": True,
+
+        "verification_id":
+            verification.id,
+
+        "expires_in_seconds":
+            60 * 5,
     }
 
 
+# ==========================
+# CONFIRM VERIFICATION CODE
+# ==========================
 
 
-@router.post("/confirm")
+@router.post(
+    "/confirm"
+)
 def confirm_verification(
     data: VerificationConfirm,
     db: Session = Depends(get_db),
 ):
+
     reservation = (
-        db.query(Reservation)
-        .filter(
-            Reservation.id == data.reservation_id
+        get_reservation_or_404(
+            db,
+            data.reservation_id,
         )
-        .first()
     )
 
-    if reservation is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Reservation not found",
-        )
+
+    # ==========================
+    # VALIDATE FORMAT
+    # ==========================
 
     if (
-        reservation.status == "pending"
-        and reservation.hold_expires_at is not None
-        and reservation.hold_expires_at <= datetime.now(timezone.utc)
+        len(data.code) != 6
+        or not data.code.isdigit()
     ):
+
         raise HTTPException(
-            status_code=410,
-            detail="Reservation hold has expired",
+            status_code=422,
+            detail=(
+                "Verification code must "
+                "contain exactly 6 digits."
+            ),
         )
 
-    client = (
-        db.query(Client)
-        .filter(
-            Client.id == reservation.client_id
-        )
-        .first()
-    )
-    
 
-    all_verifications = (
-        db.query(PhoneVerification)
-        .order_by(PhoneVerification.id.desc())
-        .all()
-    ) 
+    try:
 
-    print("=== ALL VERIFICATIONS ===")
-
-    for v in all_verifications:
-        print(
-            "ID:",
-            v.id,
-            "PHONE:",
-            repr(v.phone),
-            "USED:",
-            v.used_at,
-        )
-    
-
-    verification = (
-        db.query(PhoneVerification)
-        .filter(
-            PhoneVerification.phone == client.phone,
-            PhoneVerification.used_at.is_(None),
-        )
-        .order_by(
-            PhoneVerification.id.desc()
-        )
-        .first()
-    )
-
-    if verification is None:
-        raise HTTPException(
-            status_code=400,
-            detail="Verification code not found",
-        )
-    now = datetime.now(timezone.utc)
-
-    print("========== VERIFICATION DEBUG ==========")
-    print("Verification ID:", verification.id)
-    print("Phone:", verification.phone)
-    print("Expires at:", verification.expires_at)
-    print("Expires timezone:", verification.expires_at.tzinfo)
-    print("Current UTC:", now)
-    print("Current timezone:", now.tzinfo)
-    print("Difference:", verification.expires_at - now)
-    print("========================================")
-
-    if verification.expires_at < now:
-        raise HTTPException(
-            status_code=400,
-            detail="Verification code expired",
+        otp_service.verify_code(
+            db=db,
+            reservation=reservation,
+            code=data.code,
         )
 
-    if verification.attempts >= 5:
-        raise HTTPException(
-            status_code=400,
-            detail="Too many attempts",
-        )
 
-    verification.attempts += 1
-
-    entered_hash = hash_code(data.code)
-
-    if entered_hash != verification.code_hash:
-        db.commit()
+    except OTPNotFoundError as exc:
 
         raise HTTPException(
             status_code=400,
-            detail="Invalid verification code",
-        )
+            detail=str(exc),
+        ) from exc
 
-    verification.used_at = datetime.now()
 
-    reservation.phone_verified = True
+    except OTPExpiredError as exc:
 
-    
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc),
+        ) from exc
 
-    db.commit()
+
+    except OTPTooManyAttemptsError as exc:
+
+        raise HTTPException(
+            status_code=429,
+            detail=str(exc),
+        ) from exc
+
+
+    except OTPInvalidError as exc:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc),
+        ) from exc
+
 
     return {
+
         "verified": True,
-        "reservation_id": reservation.id,
+
+        "reservation_id":
+            reservation.id,
     }

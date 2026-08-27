@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from datetime import datetime
+from datetime import datetime, timezone
 from app.models import Reservation
 from app.schemas import PaymentRequest
 
@@ -44,7 +44,7 @@ def start_payment(
 
     if (
         reservation.hold_expires_at is not None
-        and reservation.hold_expires_at <= datetime.now()
+        and reservation.hold_expires_at <= datetime.now(timezone.utc)
     ):
         raise HTTPException(
             status_code=410,

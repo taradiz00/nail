@@ -28,6 +28,11 @@ if config.config_file_name is not None:
 # Database URL
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# sms service
+FARAZSMS_API_KEY = os.getenv("FARAZSMS_API_KEY")
+FARAZSMS_PATTERN_CODE = os.getenv("FARAZSMS_PATTERN_CODE")
+FARAZSMS_SENDER_NUMBER = os.getenv("FARAZSMS_SENDER_NUMBER")
+
 
 config.set_main_option("sqlalchemy.url", DATABASE_URL.replace("%", "%%"))
 
