@@ -1,7 +1,5 @@
 import logging
-
 import httpx
-
 
 from app.core.config import settings
 
@@ -17,10 +15,15 @@ logger = logging.getLogger(__name__)
 
 class FarazSMSProvider(SMSProvider):
 
-    async def send_otp(
+    # ==========================
+    # GENERIC PATTERN SENDER
+    # ==========================
+
+    async def send_pattern(
         self,
         phone: str,
-        code: str,
+        pattern_code: str,
+        attributes: dict[str, str],
     ) -> SMSResult:
 
         url = (
@@ -35,16 +38,14 @@ class FarazSMSProvider(SMSProvider):
         }
 
         payload = {
+            "code": pattern_code,
 
-            "code": settings.FARAZSMS_PATTERN_CODE,
-
-            "attributes": {
-                "code": code,
-            },
+            "attributes": attributes,
 
             "recipient": phone,
 
-            "line_number": settings.FARAZSMS_LINE_NUMBER,
+            "line_number":
+                settings.FARAZSMS_LINE_NUMBER,
 
             "number_format": "english",
         }
@@ -71,6 +72,7 @@ class FarazSMSProvider(SMSProvider):
                 "SMS provider timed out"
             ) from exc
 
+
         except httpx.RequestError as exc:
 
             logger.warning(
@@ -83,8 +85,8 @@ class FarazSMSProvider(SMSProvider):
             ) from exc
 
 
-        # FarazSMS pattern endpoint documents
-        # HTTP 201 for successful creation/send.
+        # FarazSMS currently documents HTTP 201
+        # as successful pattern sending.
 
         if response.status_code != 201:
 
@@ -117,7 +119,7 @@ class FarazSMSProvider(SMSProvider):
         if data.get("status") != "success":
 
             logger.warning(
-                "FarazSMS response was not successful"
+                "FarazSMS rejected pattern message"
             )
 
             raise SMSProviderError(
@@ -134,4 +136,26 @@ class FarazSMSProvider(SMSProvider):
                 if provider_data is not None
                 else None
             )
+        )
+
+
+    # ==========================
+    # OTP
+    # ==========================
+
+    async def send_otp(
+        self,
+        phone: str,
+        code: str,
+    ) -> SMSResult:
+
+        return await self.send_pattern(
+            phone=phone,
+
+            pattern_code=
+                settings.FARAZSMS_PATTERN_CODE,
+
+            attributes={
+                "code": code,
+            },
         )

@@ -30,6 +30,9 @@ from app.services.otp_services import (
     otp_service,
 )
 
+from app.services.reservation_notification_service import (
+    reservation_notification_service,
+)
 
 router = APIRouter(
     prefix="/verification",
@@ -236,7 +239,7 @@ async def send_verification_code(
 @router.post(
     "/confirm"
 )
-def confirm_verification(
+async def confirm_verification(
     data: VerificationConfirm,
     db: Session = Depends(get_db),
 ):
@@ -307,11 +310,49 @@ def confirm_verification(
             detail=str(exc),
         ) from exc
 
+    client = (
+    db.query(Client)
+    .filter(
+        Client.id
+        == reservation.client_id
+    )
+    .first()
+)
+
+    notification_result = {
+    "client_sms_sent": False,
+    "admin_sms_sent": False,
+}
+
+
+    if client is not None:
+
+        notification_result = (
+            await
+            reservation_notification_service
+            .send_confirmation_messages(
+                db=db,
+                reservation=reservation,
+                client=client,
+        )
+    )
+
 
     return {
+    "verified": True,
 
-        "verified": True,
+    "confirmed": True,
 
-        "reservation_id":
-            reservation.id,
-    }
+    "reservation_id":
+        reservation.id,
+
+    "client_sms_sent":
+        notification_result[
+            "client_sms_sent"
+        ],
+
+    "admin_sms_sent":
+        notification_result[
+            "admin_sms_sent"
+        ],
+}

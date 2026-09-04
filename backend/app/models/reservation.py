@@ -63,5 +63,19 @@ class Reservation(Base):
 
     hold_expires_at: Mapped[datetime | None] = mapped_column(
     DateTime(timezone=True),
+    nullable=True,)
+
+    client_confirmation_sms_sent_at: Mapped[
+    datetime | None
+] = mapped_column(
+    DateTime(timezone=True),
+    nullable=True,
+)
+
+
+admin_confirmation_sms_sent_at: Mapped[
+    datetime | None
+] = mapped_column(
+    DateTime(timezone=True),
     nullable=True,
 )

@@ -53,6 +53,10 @@ class Settings(BaseSettings):
 
     SMS_TIMEOUT_SECONDS: float = 10.0
 
+    FARAZSMS_CLIENT_CONFIRMATION_PATTERN: str
+
+    FARAZSMS_ADMIN_CONFIRMATION_PATTERN: str
+
 
     # ==========================
     # EMAIL
@@ -71,6 +75,8 @@ class Settings(BaseSettings):
     # ==========================
 
     BASE_URL: str = "http://127.0.0.1:8000"
+
+    ADMIN_PHONE: str
 
 
     model_config = SettingsConfigDict(

@@ -686,11 +686,20 @@ class OTPService:
             True
         )
 
+        reservation.status = "confirmed"
+
+
+        reservation.hold_expires_at = None
+
 
         db.commit()
 
         db.refresh(
             verification
+        )
+
+        db.refresh(
+            reservation
         )
 
 
